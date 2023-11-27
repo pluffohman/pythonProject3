@@ -28,7 +28,7 @@ async def cmd_start(message: types.Message):
     )
     await message.answer("Выберите откуда вы хотите заказать еду.", reply_markup=keyboard)
 
-@dp.message(F.text.lower() =="из столовой" or F.text.lower() == "из пекарни")
+@dp.message((F.text.lower() =="из столовой") | (F.text.lower() == "из пекарни"))
 async def stolovaya(message: types.Message):
     builder = ReplyKeyboardBuilder()
     reply_markup = builder.as_markup(resize_keyboard=True)
@@ -45,7 +45,12 @@ async def stolovaya(message: types.Message):
         resize_keyboard=True,
     )
     await message.answer(text="Выберите позицию из списка.",reply_markup=keyboard)
-@dp.message(F.text.lower() =="сосиска в тесте" or F.text.lower() == "пирожок с капустой" or F.text.lower() == "пирожок с вишней" or F.text.lower() == "пирожок с яблоком" or F.text.lower() == "choco pie"or F.text.lower() == "юбилейное с шоколадом")
+@dp.message((F.text.lower() =="сосиска в тесте")
+            | (F.text.lower() == "пирожок с капустой")
+            | (F.text.lower() == "пирожок с вишней")
+            | (F.text.lower() == "пирожок с яблоком")
+            | (F.text.lower() == "choco pie")
+            | (F.text.lower() == "юбилейное с шоколадом"))
 async def zakaz(message: types.Message):
     prozakaz = message.text
     await message.answer(text="Введите здание, в котором вы находитесь, кабинет, ник в тг.")
